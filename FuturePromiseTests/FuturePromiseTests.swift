@@ -1,36 +1,40 @@
 //
-//  FuturePromiseTests.swift
-//  FuturePromiseTests
+//  Licensed under Apache License v2.0
 //
-//  Created by Alex on 18/03/2018.
-//  Copyright © 2018 Jarroo. All rights reserved.
+//  See LICENSE.txt for license information
+//  SPDX-License-Identifier: Apache-2.0
+//
+//  Copyright © 2018 Jarroo.
 //
 
 import XCTest
-@testable import FuturePromise
+import FuturePromise
+
+private func delayedOperation(of delay: Int) -> Future<Bool> {
+    let queue = DispatchQueue.main
+    let promise: Promise<Bool> = queue.newPromise()
+    queue.asyncAfter(deadline: .now() + .seconds(delay)) {
+        promise.succeed(result: true)
+    }
+    return promise.futureResult
+}
 
 class FuturePromiseTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        let exp1 = expectation(description: "Expectation 1")
+        let exp2 = expectation(description: "Expectation 2")
+        let expDone = expectation(description: "Expectation 1")
+
+        delayedOperation(of: 1).then { (Bool) -> Future<Bool> in
+            exp1.fulfill()
+            return delayedOperation(of: 2)
+        }.then { (Bool) -> Future<Bool> in
+            exp2.fulfill()
+            return delayedOperation(of: 3)
+        }.whenComplete {
+            expDone.fulfill()
         }
+        waitForExpectations(timeout: 30)
     }
-    
 }

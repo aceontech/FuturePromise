@@ -1,9 +1,10 @@
 //
-//  FuturePromise.h
-//  FuturePromise
+//  Licensed under Apache License v2.0
 //
-//  Created by Alex on 18/03/2018.
-//  Copyright © 2018 Jarroo. All rights reserved.
+//  See LICENSE.txt for license information
+//  SPDX-License-Identifier: Apache-2.0
+//
+//  Copyright © 2018 Jarroo.
 //
 
 #import <UIKit/UIKit.h>

@@ -10,6 +10,10 @@
 		FAF96A4F205DDE4000C40F15 /* FuturePromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF96A45205DDE4000C40F15 /* FuturePromise.framework */; };
 		FAF96A54205DDE4000C40F15 /* FuturePromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF96A53205DDE4000C40F15 /* FuturePromiseTests.swift */; };
 		FAF96A56205DDE4000C40F15 /* FuturePromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAF96A48205DDE4000C40F15 /* FuturePromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAF96A65205DDE6200C40F15 /* DispatchQueue+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF96A61205DDE6200C40F15 /* DispatchQueue+Promise.swift */; };
+		FAF96A66205DDE6200C40F15 /* FuturePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF96A62205DDE6200C40F15 /* FuturePromise.swift */; };
+		FAF96A67205DDE6200C40F15 /* DispatchQueue+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF96A63205DDE6200C40F15 /* DispatchQueue+Helpers.swift */; };
+		FAF96A68205DDE6200C40F15 /* DispatchQueue+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF96A64205DDE6200C40F15 /* DispatchQueue+Future.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,10 @@
 		FAF96A4E205DDE4000C40F15 /* FuturePromiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FuturePromiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF96A53205DDE4000C40F15 /* FuturePromiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuturePromiseTests.swift; sourceTree = "<group>"; };
 		FAF96A55205DDE4000C40F15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAF96A61205DDE6200C40F15 /* DispatchQueue+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Promise.swift"; sourceTree = "<group>"; };
+		FAF96A62205DDE6200C40F15 /* FuturePromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuturePromise.swift; sourceTree = "<group>"; };
+		FAF96A63205DDE6200C40F15 /* DispatchQueue+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Helpers.swift"; sourceTree = "<group>"; };
+		FAF96A64205DDE6200C40F15 /* DispatchQueue+Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Future.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,7 @@
 		FAF96A47205DDE4000C40F15 /* FuturePromise */ = {
 			isa = PBXGroup;
 			children = (
+				FAF96A60205DDE6200C40F15 /* Sources */,
 				FAF96A48205DDE4000C40F15 /* FuturePromise.h */,
 				FAF96A49205DDE4000C40F15 /* Info.plist */,
 			);
@@ -84,6 +93,17 @@
 				FAF96A55205DDE4000C40F15 /* Info.plist */,
 			);
 			path = FuturePromiseTests;
+			sourceTree = "<group>";
+		};
+		FAF96A60205DDE6200C40F15 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FAF96A62205DDE6200C40F15 /* FuturePromise.swift */,
+				FAF96A61205DDE6200C40F15 /* DispatchQueue+Promise.swift */,
+				FAF96A64205DDE6200C40F15 /* DispatchQueue+Future.swift */,
+				FAF96A63205DDE6200C40F15 /* DispatchQueue+Helpers.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +216,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF96A68205DDE6200C40F15 /* DispatchQueue+Future.swift in Sources */,
+				FAF96A65205DDE6200C40F15 /* DispatchQueue+Promise.swift in Sources */,
+				FAF96A67205DDE6200C40F15 /* DispatchQueue+Helpers.swift in Sources */,
+				FAF96A66205DDE6200C40F15 /* FuturePromise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +398,7 @@
 		FAF96A5D205DDE4000C40F15 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = FuturePromiseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -387,6 +412,7 @@
 		FAF96A5E205DDE4000C40F15 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = FuturePromiseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
