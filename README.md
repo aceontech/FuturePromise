@@ -24,3 +24,12 @@ i.e. coroutines, or `async await`.
 
 Until then, SwiftNIO's implementation of Promises **can be considered Apple's first and only santioned implementation** of the 
 well-known concurrency pattern.
+
+## Documentation
+
+The generated documentation pages can be found [here](https://jarrroo.github.io/FuturePromise/docs).
+
+* [Future](https://jarrroo.github.io/FuturePromise/docs/Classes/Future.html)
+* [Promise](https://jarrroo.github.io/FuturePromise/docs/Classes/Promise.html)
+* [DispatchQueue extensions](https://jarrroo.github.io/FuturePromise/docs/Extensions/DispatchQueue.html)
+
