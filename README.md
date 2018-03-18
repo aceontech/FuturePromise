@@ -33,3 +33,18 @@ The generated documentation pages can be found [here](https://jarrroo.github.io/
 * [Promise](https://jarrroo.github.io/FuturePromise/docs/Classes/Promise.html)
 * [DispatchQueue extensions](https://jarrroo.github.io/FuturePromise/docs/Extensions/DispatchQueue.html)
 
+## Usage examples
+
+From Apple's SwiftNIO documentation:
+
+```swift
+doWork().then {
+  doMoreWork($0)
+ }.then {
+   doYetMoreWork($0)
+ }.thenIfError {
+   maybeRecoverFromError($0)
+ }.map {
+   transformData($0)
+ }.cascade(promise: userPromise)
+```
