@@ -40,11 +40,11 @@ From Apple's SwiftNIO documentation:
 ```swift
 doWork().then {
   doMoreWork($0)
- }.then {
-   doYetMoreWork($0)
- }.thenIfError {
-   maybeRecoverFromError($0)
- }.map {
-   transformData($0)
- }.cascade(promise: userPromise)
+}.then {
+  doYetMoreWork($0)
+}.thenIfError {
+  maybeRecoverFromError($0)
+}.map {
+  transformData($0)
+}.cascade(promise: userPromise)
 ```
