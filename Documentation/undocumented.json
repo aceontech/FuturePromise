@@ -1,0 +1,12 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/alex/Developer/FuturePromise/FuturePromise/Sources/DispatchQueue+Helpers.swift",
+      "line": 19,
+      "symbol": "DispatchQueue.execute(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/alex/Developer/FuturePromise"
+}

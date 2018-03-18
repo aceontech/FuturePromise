@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structures  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="Structures  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html"> Docs</a> (96% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html"> Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Structures  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Future.html">Future</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/DispatchQueue.html">DispatchQueue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Promise.html">Promise</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13FuturePromise0B0V"></a>
+                    <a name="//apple_ref/swift/Struct/Promise" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13FuturePromise0B0V">Promise</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A promise to provide a result later.</p>
+
+<p>This is the provider API for <code><a href="Classes/Future.html">Future&lt;T&gt;</a></code>. If you want to return an
+unfulfilled <code><a href="Classes/Future.html">Future&lt;T&gt;</a></code> &ndash; presumably because you are interfacing to
+some asynchronous service that will return a real result later, follow this
+pattern:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">someAsyncOperation</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">ResultType</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">promise</span><span class="p">:</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt">ResultType</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="nf">newPromise</span><span class="p">()</span>
+    <span class="nf">someAsyncOperationWithACallback</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="k">in</span>
+        <span class="c1">// when finished...</span>
+        <span class="n">promise</span><span class="o">.</span><span class="nf">succeed</span><span class="p">(</span><span class="nv">result</span><span class="p">:</span> <span class="n">result</span><span class="p">)</span>
+        <span class="c1">// if error...</span>
+        <span class="n">promise</span><span class="o">.</span><span class="nf">fail</span><span class="p">(</span><span class="nv">error</span><span class="p">:</span> <span class="n">error</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">promise</span><span class="o">.</span><span class="n">futureResult</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Note that the future result is returned before the async process has provided a value.</p>
+
+<p>It&rsquo;s actually not very common to use this directly. Usually, you really want one
+of the following:</p>
+
+<ul>
+<li>If you have an <code><a href="Classes/Future.html">Future</a></code> and want to do something else after it completes,
+use <code>.then()</code></li>
+<li>If you just want to get a value back after running something on another thread,
+use <code>Future&lt;ResultType&gt;.async()</code></li>
+<li>If you already have a value and need an <code><a href="Classes/Future.html">Future&lt;&gt;</a></code> object to plug into
+some other API, create an already-resolved object with <code>queue.newSucceededFuture(result)</code>
+or <code>queue.newFailedFuture(error:)</code>.</li>
+</ul>
+
+                        <a href="Structs/Promise.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-03-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Classes  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="Classes  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html"> Docs</a> (96% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html"> Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Classes  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Future.html">Future</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/DispatchQueue.html">DispatchQueue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Promise.html">Promise</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Classes</h1>
+            <p>The following classes are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13FuturePromise0A0C"></a>
+                    <a name="//apple_ref/swift/Class/Future" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13FuturePromise0A0C">Future</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Holder for a result that will be provided later.</p>
+
+<p>Functions that promise to do work asynchronously can return an <code>Future&lt;T&gt;</code>.
+The recipient of such an object can then observe it to be notified when the operation completes.</p>
+
+<p>The provider of a <code>Future&lt;T&gt;</code> can create and return a placeholder object
+before the actual result is available. For example:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getNetworkData</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">NetworkResponse</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">promise</span><span class="p">:</span> <span class="kt">Promise</span><span class="o">&lt;</span><span class="kt">NetworkResponse</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="nf">newPromise</span><span class="p">()</span>
+    <span class="n">queue</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+        <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="k">do</span> <span class="n">some</span> <span class="n">work</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+        <span class="n">promise</span><span class="o">.</span><span class="nf">succeed</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="k">if</span> <span class="n">it</span> <span class="n">fails</span><span class="p">,</span> <span class="n">instead</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+        <span class="n">promise</span><span class="o">.</span><span class="nf">fail</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">promise</span><span class="o">.</span><span class="n">futureResult</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Note that this function returns immediately; the promise object will be given a value
+later on. This behaviour is common to Future/Promise implementations in many programming
+languages. If you are unfamiliar with this kind of object, the following resources may be
+helpful:</p>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises">Javascript</a></li>
+<li><a href="http://docs.scala-lang.org/overviews/core/futures.html">Scala</a></li>
+<li><a href="https://docs.google.com/document/d/10WOZgLQaYNpOrag-eTbUm-JUCCfdyfravZ4qSOQPg1M/edit">Python</a></li>
+</ul>
+
+<p>If you receive a <code>Future&lt;T&gt;</code> from another function, you have a number of options:
+The most common operation is to use <code>then()</code> or <code>map()</code> to add a function that will be called
+with the eventual result.  Both methods returns a new <code>Future&lt;T&gt;</code> immediately
+that will receive the return value from your function, but they behave differently. If you have
+a function that can return synchronously, the <code>map</code> function will transform the result <code>T</code> to a
+the new result value <code>U</code> and return an <code>Future&lt;U&gt;</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">networkData</span> <span class="o">=</span> <span class="nf">getNetworkData</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+<span class="c1">// When network data is received, convert it.</span>
+<span class="k">let</span> <span class="nv">processedResult</span><span class="p">:</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">Processed</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">networkData</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">NetworkResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Processed</span> <span class="k">in</span>
+    <span class="o">...</span> <span class="n">parse</span> <span class="n">network</span> <span class="n">data</span> <span class="o">....</span>
+    <span class="k">return</span> <span class="n">processedResult</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>If however you need to do more asynchronous processing, you can call <code>then()</code>. The return value of the
+function passed to <code>then</code> must be a new <code>Future&lt;U&gt;</code> object: the return value of <code>then()</code> is
+a new <code>Future&lt;U&gt;</code> that will contain the eventual result of both the original operation and
+the subsequent one.</p>
+<pre class="highlight swift"><code><span class="c1">// When converted network data is available, begin the database operation.</span>
+<span class="k">let</span> <span class="nv">databaseResult</span><span class="p">:</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">DBResult</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">processedResult</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="p">(</span><span class="nv">p</span><span class="p">:</span> <span class="kt">Processed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">DBResult</span><span class="o">&gt;</span> <span class="k">in</span>
+    <span class="k">return</span> <span class="nf">someDatabaseOperation</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>In essence, future chains created via <code>then()</code> provide a form of data-driven asynchronous programming
+that allows you to dynamically declare data dependencies for your various operations.</p>
+
+<p><code>Future</code> chains created via <code>then()</code> are sufficient for most purposes. All of the registered
+functions will eventually run in order. If one of those functions throws an error, that error will
+bypass the remaining functions. You can use <code>thenIfError()</code> to handle and optionally recover from
+errors in the middle of a chain.</p>
+
+<p>At the end of an <code>Future</code> chain, you can use <code>whenSuccess()</code> or <code>whenFailure()</code> to add an
+observer callback that will be invoked with the result or error at that point. (Note: If you ever
+find yourself invoking <code>promise.succeed()</code> from inside a <code>whenSuccess()</code> callback, you probably should
+use <code>then()</code> or <code>cascade(promise:)</code> instead.)</p>
+
+<p><code>Future</code> objects are typically obtained by:</p>
+
+<ul>
+<li>Using <code>Future&lt;T&gt;.async</code> or a similar wrapper function.</li>
+<li>Using <code>.then()</code> on an existing future to create a new future for the next step in a series of operations.</li>
+<li>Initializing an <code>Future</code> that already has a value or an error</li>
+</ul>
+
+                        <a href="Classes/Future.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-03-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
