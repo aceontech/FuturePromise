@@ -26,6 +26,22 @@ i.e. coroutines, or `async await`.
 Until then, SwiftNIO's implementation of Promises **can be considered Apple's first and only santioned implementation** of the 
 well-known concurrency pattern for Apple platforms.
 
+## Installation
+
+### Cocoapods
+
+Add the following to your `Podfile` & run `pod install`:
+```ruby
+pod 'FuturePromise'
+```
+
+### Carthage
+
+Add the following to your `Cartfile` & run `carthage update`:
+```swift
+github "jarrroo/FuturePromise"
+```
+
 ## Documentation
 
 The generated documentation pages can be found [here](https://jarrroo.github.io/FuturePromise/docs).
