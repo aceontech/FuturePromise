@@ -1,6 +1,6 @@
 # FuturePromise, a Swift promises implementation for iOS, ported from Apple's own SwiftNIO project
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![Cocoapods compatible](https://cocoapod-badges.herokuapp.com/v/FuturePromise/badge.png)
 
 ## Introduction 
 
@@ -15,7 +15,6 @@ While this framework is primarily geared toward Swift on the (Linux) server, I n
 EventLoops for concurrency, but it was straightforward to port it to use `DispatchQueue`s instead. 
 
 This Github repo is the result of that effort. 
-
 
 ## Goal
 
