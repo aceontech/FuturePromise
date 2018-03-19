@@ -4,8 +4,6 @@
 //  See LICENSE.txt for license information
 //  SPDX-License-Identifier: Apache-2.0
 //
-//  Copyright © 2018 Jarroo.
-//
 
 import Foundation
 

@@ -17,7 +17,7 @@ extension DispatchQueue {
     }
 
     public func execute(_ task: @escaping () -> Void) {
-        self.async {
+        self.sync {
             task()
         }
     }

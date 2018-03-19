@@ -4,8 +4,6 @@
 //  See LICENSE.txt for license information
 //  SPDX-License-Identifier: Apache-2.0
 //
-//  Copyright © 2018 Jarroo.
-//
 
 /// A `Result`-like type that is used to track the data through the
 /// callback pipeline.
@@ -60,7 +58,7 @@ private struct CallbackList: ExpressibleByArrayLiteral {
         case (.some(let onlyCallback), .none):
             return [onlyCallback]
         case (.some(let first), .some(let others)):
-            return [first]+others
+            return [first] + others
         }
     }
 
@@ -173,7 +171,7 @@ public struct Promise<T> {
     /// Fire the associated `Future` on the appropriate dispatch queue.
     ///
     /// This method provides the primary difference between the `Promise` and most
-    /// other `Promise` implementations: specifically, all callbacks fire on the `EventLoop`
+    /// other `Promise` implementations: specifically, all callbacks fire on the `DispatchQueue`
     /// that was used to create the promise.
     ///
     /// - parameters:
@@ -279,21 +277,19 @@ public final class Future<T> {
     // TODO: Provide a tracing facility.  It would be nice to be able to set '.debugTrace = true' on any Future or Promise and have every subsequent chained Future report the success result or failure error.  That would simplify some debugging scenarios.
     fileprivate var value: FutureValue<T>? {
         didSet {
-            _fulfilled = true
+            _isFulfilled = true
         }
     }
-    fileprivate var _fulfilled: Bool
 
-    /// The `EventLoop` which is tied to the `Future` and is used to notify all registered callbacks.
+    fileprivate var _isFulfilled: Bool
+
+    /// The `DispatchQueue` which is tied to the `Future` and is used to notify all registered callbacks.
     public let queue: DispatchQueue
-
-    private let queueKeyType = DispatchSpecificKey<String>()
-    private let queueKey: String
 
     /// Whether this `Future` has been fulfilled. This is a thread-safe
     /// computed-property.
-    internal var fulfilled: Bool {
-        return _fulfilled
+    internal var isFulfilled: Bool {
+        return _isFulfilled
     }
 
     /// Callbacks that should be run when this `Future<T>` gets a value.
@@ -303,12 +299,9 @@ public final class Future<T> {
     fileprivate var callbacks: CallbackList = CallbackList()
 
     private init(queue: DispatchQueue, value: FutureValue<T>?, file: StaticString, line: UInt) {
-        self.queueKey = UUID().uuidString
-        queue.setSpecific(key: self.queueKeyType, value: self.queueKey)
-
         self.queue = queue
         self.value = value
-        self._fulfilled = value != nil
+        self._isFulfilled = value != nil
 
 //        debugOnly {
 //            if let me = eventLoop as? SelectableEventLoop {
@@ -334,13 +327,13 @@ public final class Future<T> {
 
 //    deinit {
 //        debugOnly {
-//            if let eventLoop = self.queue as? SelectableEventLoop {
+//            if let eventLoop = self.queue as? SelectableDispatchQueue {
 //                let creation = queue.promiseCreationStoreRemove(future: self)
-//                if !fulfilled {
+//                if !isFulfilled {
 //                    fatalError("leaking promise created at \(creation)", file: creation.file, line: creation.line)
 //                }
 //            } else {
-//                precondition(fulfilled, "leaking an unfulfilled Promise")
+//                precondition(isFulfilled, "leaking an unfulfilled Promise")
 //            }
 //        }
 //    }
@@ -530,6 +523,7 @@ extension Future {
         return thenIfError { return Future<T>(queue: self.queue, result: callback($0), file: file, line: line) }
     }
 
+
     /// Add a callback.  If there's already a value, invoke it and return the resulting list of new callback functions.
     fileprivate func _addCallback(_ callback: @escaping () -> CallbackList) -> CallbackList {
         assert(queue.inQueue)
@@ -611,6 +605,7 @@ extension Future {
             return CallbackList()
         }
     }
+
 
     /// Internal:  Set the value and return a list of callbacks that should be invoked as a result.
     fileprivate func _setValue(value: FutureValue<T>) -> CallbackList {
@@ -739,18 +734,22 @@ extension Future {
     /// - returns: The value of the `Future` when it completes.
     /// - throws: The error value of the `Future` if it errors.
     public func wait() throws -> T {
-//        if !(self.queue is EmbeddedEventLoop) {
-//            precondition(!queue.inQueue, "wait() must not be called when on the EventLoop")
+//        if !(self.queue is EmbeddedDispatchQueue) {
+//            precondition(!queue.inQueue, "wait() must not be called when on the DispatchQueue")
 //        }
 
         var v: FutureValue <T>? = nil
+        let group = DispatchGroup()
+        group.enter()
 //        let lock = ConditionLock(value: 0)
         _whenComplete { () -> CallbackList in
 //            lock.lock()
             v = self.value
+            group.leave()
 //            lock.unlock(withValue: 1)
             return CallbackList()
         }
+        group.wait()
 //        lock.lock(whenValue: 1)
 //        lock.unlock()
 
@@ -773,7 +772,7 @@ extension Future {
     ///
     /// - parameters:
     ///     - futures: An array of `Future<Void>` to wait for.
-    ///     - eventLoop: The `EventLoop` on which the new `Future` callbacks will fire.
+    ///     - eventLoop: The `DispatchQueue` on which the new `Future` callbacks will fire.
     /// - returns: A new `Future`.
     public static func andAll(_ futures: [Future<Void>], queue: DispatchQueue) -> Future<Void> {
         let p0: Promise<Void> = queue.newPromise()
@@ -798,7 +797,7 @@ extension Future {
     /// the one you're hopping *to*, allowing you to avoid doing allocations in that case.
     ///
     /// - parameters:
-    ///     - target: The `EventLoop` that the returned `Future` will run on.
+    ///     - target: The `DispatchQueue` that the returned `Future` will run on.
     /// - returns: An `Future` whose callbacks run on `target` instead of the original loop.
     func hopTo(queue target: DispatchQueue) -> Future<T> {
         if target === self.queue {
