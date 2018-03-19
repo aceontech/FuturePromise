@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "FuturePromise"
-  s.version      = "0.1.0"
+  s.version      = "0.2.0"
   s.summary      = "Port of Apple's SwiftNIO implementation of Futures and Promises, based on DispatchQueue instead of EventLoop."
 
   s.description  = <<-DESC
