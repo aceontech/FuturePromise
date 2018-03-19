@@ -1,5 +1,7 @@
 # FuturePromise, a Swift promises implementation for iOS, ported from Apple's own SwiftNIO project
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 ## Introduction 
 
 In March 2018, **Apple** released and open-sourced its [SwiftNIO](https://github.com/apple/swift-nio) project, which is, in 
@@ -23,7 +25,7 @@ iOS (and macOS) projects, until Swift gets
 i.e. coroutines, or `async await`.
 
 Until then, SwiftNIO's implementation of Promises **can be considered Apple's first and only santioned implementation** of the 
-well-known concurrency pattern.
+well-known concurrency pattern for Apple platforms.
 
 ## Documentation
 
