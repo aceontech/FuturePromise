@@ -1,6 +1,6 @@
 # FuturePromise, a Swift promises implementation for iOS, ported from Apple's own SwiftNIO project
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![Cocoapods compatible](https://cocoapod-badges.herokuapp.com/v/FuturePromise/badge.png)
 
 ## Introduction 
 
@@ -16,7 +16,6 @@ EventLoops for concurrency, but it was straightforward to port it to use `Dispat
 
 This Github repo is the result of that effort. 
 
-
 ## Goal
 
 The goal of this project is to maintain an API-compatible port of SwiftNIO's `Future` and `Promise` implementation for use in 
@@ -26,6 +25,22 @@ i.e. coroutines, or `async await`.
 
 Until then, SwiftNIO's implementation of Promises **can be considered Apple's first and only santioned implementation** of the 
 well-known concurrency pattern for Apple platforms.
+
+## Installation
+
+### Cocoapods
+
+Add the following to your `Podfile` & run `pod install`:
+```ruby
+pod 'FuturePromise'
+```
+
+### Carthage
+
+Add the following to your `Cartfile` & run `carthage update`:
+```swift
+github "jarrroo/FuturePromise"
+```
 
 ## Documentation
 
