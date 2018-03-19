@@ -23,7 +23,7 @@ iOS (and macOS) projects, until Swift gets
 i.e. coroutines, or `async await`.
 
 Until then, SwiftNIO's implementation of Promises **can be considered Apple's first and only santioned implementation** of the 
-well-known concurrency pattern.
+well-known concurrency pattern for Apple platforms.
 
 ## Documentation
 
