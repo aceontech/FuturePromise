@@ -47,7 +47,7 @@ github "jarrroo/FuturePromise"
 The generated documentation pages can be found [here](https://jarrroo.github.io/FuturePromise/docs).
 
 * [Future](https://jarrroo.github.io/FuturePromise/docs/Classes/Future.html)
-* [Promise](https://jarrroo.github.io/FuturePromise/docs/Classes/Promise.html)
+* [Promise](https://jarrroo.github.io/FuturePromise/docs/Structs/Promise.html)
 * [DispatchQueue extensions](https://jarrroo.github.io/FuturePromise/docs/Extensions/DispatchQueue.html)
 
 ## Usage examples
